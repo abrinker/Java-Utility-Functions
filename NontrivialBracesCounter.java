@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 /**
  * Nontrivial braces counter
+ * As this is a utility tool, all the methods are static and thus are
+ * able to be used without the user having to create a dedicated object
  */
 public class NontrivialBracesCounter {
 
@@ -86,12 +88,34 @@ public class NontrivialBracesCounter {
     }
 
     /**
+     * This method runs a test of the methods included in the file.
+     * It is not used other than for this testing purpose and should
+     * be removed if placed into production
+     */
+    public static void test() {
+        String testProgram =
+                "/* {} {} {{*/\n" + //Test block comments (no LB *left brace*)
+                "{{}}\n" +          //Test regular braces (2 LB)
+                "{} //{} {}\n" +    //Test line comment (1 LB)
+                "\"{}\"{}\n" +      //Test Strings (1 LB)
+                "'{'\n" +           //Test Characters (0 LB)
+                "\"\\' {}\"s ";     //Test Case where we have an apostrophe in a string (0 LB)
+        int numBraces = getNumNontrivialLeftBraces(testProgram);
+        System.out.println("The number of non-trivial left braces should be 4. It is: " +
+                           numBraces);
+    }
+
+    /**
      * The main method of the program
      * @param args
      */
     public static void main(String[] args) {
+        //When run with this file as the input, the number of
+        //nontrivial braces should be equal to 20
         System.out.println(getNumNontrivialLeftBraces(readStringFromProgram(
-                "/Users/Alex/Documents/CS361/Left Braces/src/NontrivialBracesCounter.java"
+                "/Users/Alex/Documents/Colby Senior/Object Oriented Systems/" +
+                        "Java-Utility-Functions/NontrivialBracesCounter.java"
         )));
+        test();
     }
 }
